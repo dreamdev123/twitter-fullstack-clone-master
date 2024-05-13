@@ -1,0 +1,78 @@
+type Tweet {
+  id: ID!
+  content: String
+  user: User
+  createdAt: String!
+  replyCount: Int
+  retweetCount: Int
+  likeCount: Int
+  replies: [Tweet!]!
+
+  # If the authenticated user retweeted the tweet
+  retweeted: Boolean!
+  # If the authenticated user liked the tweet
+  liked: Boolean!
+}
+
+# The Context Tweet is utilized as a wrapper of retweets and
+# likes, which are actions that are presented in the timeline
+# with their original tweet
+type ContextTweet {
+  type: ContextTweetType!
+  # The original tweet, if it is not a retweet or like
+  # then it is just the tweet itself
+  originalTweet: Tweet!
+  # The context tweet (for retweets and likes)
+  contextTweet: Tweet
+  # The user that created the context (e.g. author of the retweet)
+  contextUser: User
+}
+
+enum ContextTweetType {
+  TWEET
+  RETWEET
+  LIKE
+}
+
+type Query {
+  allTweets: [Tweet!]!
+  tweet(id: ID!): Tweet
+}
+
+type Mutation {
+  # TODO: change the return to include a payload instead of the value directly
+  createTweet(input: CreateTweetInput!): Tweet
+  replyTweet(input: ReplyTweetInput!): ReplyTweetPayload!
+  retweet(input: RetweetInput!): RetweetPayload!
+  like(input: LikeInput!): LikePayload!
+}
+
+input CreateTweetInput {
+  content: String!
+}
+
+input ReplyTweetInput {
+  tweetId: ID!
+  content: String!
+}
+
+type ReplyTweetPayload {
+  repliedTweet: Tweet
+  replyTweet: Tweet
+}
+
+input RetweetInput {
+  tweetId: ID!
+}
+
+type RetweetPayload {
+  context: ContextTweet!
+}
+
+input LikeInput {
+  tweetId: ID!
+}
+
+type LikePayload {
+  context: ContextTweet!
+}

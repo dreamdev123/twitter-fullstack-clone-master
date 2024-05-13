@@ -1,0 +1,67 @@
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  name: String
+  bio: String
+  avatarSourceUrl: String
+  coverSourceUrl: String
+  tweetsCount: Int!
+  followersCount: Int!
+  followingCount: Int!
+
+  profileTweets(first: Int, after: String): ProfileTweetsConnection!
+  isFollowingUser(username: String): Boolean
+  whoToFollow: [User!]!
+}
+
+type ProfileTweetsConnection {
+  edges: [ProfileTweetsEdge]
+  pageInfo: PageInfo!
+}
+
+type ProfileTweetsEdge {
+  cursor: String!
+  node: ContextTweet!
+}
+
+# TODO: remove input pattern from queries
+input UserInput {
+  id: ID
+  username: String
+}
+
+type Query {
+  allUsers: [User!]!
+  user(input: UserInput!): User
+  me: User
+}
+
+type Mutation {
+  registerUser(input: RegisterUserInput!): User!
+  followUser(input: FollowUserInput!): FollowUserPayload!
+  unfollowUser(input: UnfollowUserInput!): UnfollowUserPayload!
+}
+
+input RegisterUserInput {
+  username: String!
+  password: String!
+  email: String!
+  name: String!
+}
+
+input FollowUserInput {
+  targetId: ID!
+}
+
+type FollowUserPayload {
+  user: User
+}
+
+input UnfollowUserInput {
+  targetId: ID!
+}
+
+type UnfollowUserPayload {
+  user: User
+}

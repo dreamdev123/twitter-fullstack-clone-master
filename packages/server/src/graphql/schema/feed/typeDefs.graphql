@@ -1,0 +1,13 @@
+type Query {
+  feed(first: Int, after: String): FeedConnection
+}
+
+type FeedConnection {
+  edges: [FeedEdge]
+  pageInfo: PageInfo!
+}
+
+type FeedEdge {
+  cursor: String!
+  node: ContextTweet!
+}

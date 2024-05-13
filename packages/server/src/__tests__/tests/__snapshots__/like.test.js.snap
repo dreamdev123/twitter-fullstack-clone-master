@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should like a tweet 1`] = `
+Object {
+  "data": Object {
+    "like": Object {
+      "context": Object {
+        "contextTweet": Object {
+          "id": "cff2eee6-f27c-4991-a4cc-08996393615b",
+        },
+        "contextUser": Object {
+          "id": "551cf7db-df68-4ad5-af6c-1935759b9291",
+          "name": "Test User One",
+        },
+        "originalTweet": Object {
+          "content": "Hello World from User Two!",
+          "id": "e2a7c8d1-70c4-4e43-b7f0-a9c75d1f92ca",
+        },
+      },
+    },
+  },
+}
+`;

@@ -1,0 +1,56 @@
+{
+  "name": "@twitter-clone/server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src",
+    "build": "babel src -d dist --copy-files",
+    "start": "knex-migrate up && node ./dist/index.js",
+    "lint": "eslint ./src",
+    "migrate": "knex-migrate",
+    "reset-db": "knex-migrate down --to 0 && knex-migrate up && knex seed:run",
+    "test": "jest --runInBand",
+    "test:auth": "jest src/__tests__/auth.test.js",
+    "test:tweet": "jest src/__tests__/tweet.test.js --watch"
+  },
+  "dependencies": {
+    "apollo-resolvers": "^1.4.1",
+    "apollo-server-express": "^2.4.8",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "connect-session-knex": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "faker": "^4.1.0",
+    "graphql": "^14.2.0",
+    "graphql-tools": "^4.0.4",
+    "knex": "^0.16.3",
+    "knex-cleaner": "^1.1.4",
+    "knex-migrate": "^1.7.2",
+    "merge-graphql-schemas": "^1.5.8",
+    "pg": "^7.9.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.7.0",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "jest": "^24.7.0",
+    "nodemon": "^1.19.0",
+    "prettier": "^1.17.0",
+    "supertest": "^4.0.2"
+  },
+  "engines": {
+    "node": "10.x",
+    "yarn": "1.x"
+  }
+}
